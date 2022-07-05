@@ -1,24 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import Board from "./components/Board";
+import Keyboard from "./components/Keyboard";
 
-function App() {
+function App(): JSX.Element {
+  const success = "rhino";
+  const [guesses, setGuesses] = useState<string[]>(() => Array(6).fill(""));
+  const [currentGuess, setCurrentGuess] = useState<string>("");
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const key = event.key;
+
+      if (isGameOver) {
+        return;
+      }
+
+      if (key === "Backspace") {
+        setCurrentGuess((previous) => previous.slice(0, -1));
+        return;
+      }
+
+      if (key === "Enter" && currentGuess.length === 5) {
+        const guessesCopy = [...guesses];
+        const index = guessesCopy.indexOf("");
+        guessesCopy[index] = currentGuess;
+        setIsGameOver(currentGuess === success);
+        setGuesses([...guessesCopy]);
+        setCurrentGuess("");
+        return;
+      }
+
+      if (key === "Enter") {
+        return;
+      }
+
+      if (currentGuess.length >= 5) {
+        return;
+      }
+
+      setCurrentGuess((previous) => previous + key);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [currentGuess, guesses, isGameOver]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Board guesses={guesses} success={success} currentGuess={currentGuess} />
+      <Keyboard />
     </div>
   );
 }
