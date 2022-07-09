@@ -1,13 +1,6 @@
 import { WORDLE_LENGTH } from "../../constants/constants";
 import Tile from "../Tile";
 
-interface LineProps {
-  guess: string;
-  success: string;
-  existingGuess: boolean;
-  dataTestId?: string;
-}
-
 function Line({
   guess,
   success,

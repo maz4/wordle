@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { within } from "@testing-library/dom";
 import Board from "../";
 
 describe("Board.tsx", () => {

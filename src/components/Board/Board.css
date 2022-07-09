@@ -1,0 +1,33 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.board__line {
+  display: flex;
+  gap: 5px;
+}
+
+.board__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px black solid;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.board__tile--green {
+  background-color: lightgreen;
+}
+.board__tile--yellow {
+  background-color: yellow;
+}
+.board__tile--gray {
+  background-color: lightgray;
+}

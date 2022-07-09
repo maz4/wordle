@@ -1,16 +1,11 @@
 import Line from "../Line";
-
-interface BoardProps {
-  guesses: string[];
-  currentGuess: string;
-  success: string;
-}
+import "./Board.css";
 
 function Board({ guesses, currentGuess, success }: BoardProps): JSX.Element {
   return (
     <div className="board">
       {guesses.map((guess: string, index: number) => {
-        const isCurrent = guesses.findIndex((val) => val === "") === index;
+        const isCurrent = guesses.findIndex((guess) => guess === "") === index;
         const existingGuess = guess !== "" && guesses.includes(guess);
         return (
           <Line
