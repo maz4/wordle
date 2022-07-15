@@ -10,4 +10,5 @@ interface KeyboardRowProps {
 interface KeyboardKeyProps {
   children: React.ReactNode;
   className: string;
+  onClick: (event: MouseEventHandler) => void;
 }

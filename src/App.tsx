@@ -13,19 +13,17 @@ function App(): JSX.Element {
   );
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      const key = event.key;
-
+    const handleWords = (key: string) => {
       if (isGameOver) {
         return;
       }
 
-      if (key === "Backspace") {
+      if (key === "Backspace" || key === "bsp") {
         setCurrentGuess((previous) => previous.slice(0, -1));
         return;
       }
 
-      if (key === "Enter" && currentGuess.length === 5) {
+      if (key === "Enter" || (key === "ent" && currentGuess.length === 5)) {
         const guessesCopy = [...guesses];
         const index = guessesCopy.findIndex((guess) => guess === "");
         const classNameMap: Record<string, string> = {};
@@ -66,9 +64,21 @@ function App(): JSX.Element {
       setCurrentGuess((previous) => previous + key);
     };
 
+    const onKeyDown = (event: KeyboardEvent) => {
+      const key = event.key;
+      handleWords(key);
+    };
+
+    const onScreenKeyboardEvent = (event: CustomEvent) => {
+      const key = event.detail;
+      handleWords(key);
+    };
+
     document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("onscreenkeyboard", onScreenKeyboardEvent);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("onscreenkeyboard", onScreenKeyboardEvent);
     };
   }, [currentGuess, guesses, isGameOver, charactersMap]);
 

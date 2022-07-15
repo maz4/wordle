@@ -4,7 +4,14 @@ function KeyboardRow({
   charactersRow,
   charactersMap,
 }: KeyboardRowProps): JSX.Element {
-  console.log(charactersMap);
+  const onKeyClick = (key: string) => {
+    const event = new CustomEvent("onscreenkeyboard", {
+      detail: key,
+    });
+
+    document.dispatchEvent(event);
+  };
+
   return (
     <div className="keyboard__row">
       {charactersRow.map((character: string, index: number) => {
@@ -12,6 +19,7 @@ function KeyboardRow({
           <KeyboardKey
             key={character + index}
             className={charactersMap[character] ?? ""}
+            onClick={(event) => onKeyClick(character)}
           >
             {character}
           </KeyboardKey>
