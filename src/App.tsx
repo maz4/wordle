@@ -84,6 +84,7 @@ function App(): JSX.Element {
 
   return (
     <div className="container">
+      <h1 className="title">Wordle</h1>
       <Board guesses={guesses} success={success} currentGuess={currentGuess} />
       <Keyboard charactersMap={charactersMap} />
     </div>

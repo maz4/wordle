@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  margin-bottom: 20px;
 }
 
 .board__line {
@@ -16,9 +15,9 @@
   align-items: center;
   justify-content: center;
   border: 1px black solid;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
   text-transform: uppercase;
 }
 
@@ -30,4 +29,12 @@
 }
 .board__tile--gray {
   background-color: lightgray;
+}
+
+@media only screen and (min-width: 768px) {
+  .board__tile {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+  }
 }

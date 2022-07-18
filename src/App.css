@@ -1,3 +1,26 @@
+body {
+  margin: 0;
+  min-width: 375px;
+}
+
 .container {
-  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.title {
+  font-family: fantasy, sans-serif;
+  font-size: 38px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .title {
+    font-size: 48px;
+    margin-top: 15px;
+  }
 }
