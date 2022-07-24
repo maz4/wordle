@@ -4,7 +4,7 @@ import "./Keyboard.css";
 
 function Keyboard({ charactersMap }: KeyboardProps): JSX.Element {
   return (
-    <div className="keyboard">
+    <div className="keyboard" data-testid="keyboard">
       {KEYBOARD_LAYOUT.map((row: string[], index: number) => {
         return (
           <KeyboardRow
