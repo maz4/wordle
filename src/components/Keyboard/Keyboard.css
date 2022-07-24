@@ -35,9 +35,6 @@
   background-color: lightgray;
 }
 
-@media screen (min-width: 780px) {
-}
-
 @media only screen and (min-width: 768px) {
   .keyboard__row {
     gap: 10px;
