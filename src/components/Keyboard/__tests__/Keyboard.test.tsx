@@ -1,6 +1,6 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Keyboard from "../index";
-import { KEYBOARD_LAYOUT } from "../../../constants/constants";
+import { KEYBOARD_LAYOUT, allowedKeys } from "../../../constants/constants";
 import userEvent from "@testing-library/user-event";
 
 const keys = KEYBOARD_LAYOUT.reduce((acc, next) => {
@@ -14,14 +14,14 @@ describe("Board.tsx", () => {
     screen.getByTestId("keyboard");
   });
 
-  it.each(keys)("should render key %s", (key) => {
+  it.each(allowedKeys)("should render key %s", (key) => {
     render(<Keyboard charactersMap={{}} />);
     screen.getByText(key);
   });
 
   it("should set gray color on incorrect letters", () => {
     render(<Keyboard charactersMap={{ a: "keyboard__key--gray" }} />);
-    const letterA = screen.getByText(/a/i);
+    const letterA = screen.getByText("a");
 
     expect(letterA).toHaveClass("keyboard__key keyboard__key--gray");
   });
@@ -32,8 +32,8 @@ describe("Board.tsx", () => {
         charactersMap={{ a: "keyboard__key--gray", y: "keyboard__key--yellow" }}
       />
     );
-    const letterA = screen.getByText(/a/i);
-    const letterY = screen.getByText(/y/i);
+    const letterA = screen.getByText("a");
+    const letterY = screen.getByText("y");
 
     expect(letterA).toHaveClass("keyboard__key keyboard__key--gray");
     expect(letterY).toHaveClass("keyboard__key keyboard__key--yellow");
@@ -49,9 +49,9 @@ describe("Board.tsx", () => {
         }}
       />
     );
-    const letterA = screen.getByText(/a/i);
-    const letterY = screen.getByText(/y/i);
-    const letterR = screen.getByText(/r/i);
+    const letterA = screen.getByText("a");
+    const letterY = screen.getByText("y");
+    const letterR = screen.getByText("r");
 
     expect(letterA).toHaveClass("keyboard__key keyboard__key--gray");
     expect(letterY).toHaveClass("keyboard__key keyboard__key--yellow");
@@ -66,7 +66,7 @@ describe("Board.tsx", () => {
       detail: "a",
     });
 
-    userEvent.click(screen.getByText(/a/i));
+    userEvent.click(screen.getByText("a"));
     expect(keySpy).toBeCalledTimes(1);
     expect(keySpy).toBeCalledWith(event);
   });

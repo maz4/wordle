@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Board from "./components/Board";
-import Keyboard from "./components/Keyboard";
+import Board from "../../components/Board";
+import Keyboard from "../../components/Keyboard";
+import { allowedKeys } from "../../constants/constants";
+import GameOver from "../../components/GameOver";
 
 function App(): JSX.Element {
   const success = "rhino";
@@ -18,12 +20,16 @@ function App(): JSX.Element {
         return;
       }
 
-      if (key === "Backspace" || key === "bsp") {
+      if (!allowedKeys.includes(key)) {
+        return;
+      }
+
+      if (key === "Backspace") {
         setCurrentGuess((previous) => previous.slice(0, -1));
         return;
       }
 
-      if (key === "Enter" || (key === "ent" && currentGuess.length === 5)) {
+      if (currentGuess.length === 5 && key === "Enter") {
         const guessesCopy = [...guesses];
         const index = guessesCopy.findIndex((guess) => guess === "");
         const classNameMap: Record<string, string> = {};
@@ -50,6 +56,7 @@ function App(): JSX.Element {
         setIsGameOver(currentGuess === success);
         setGuesses([...guessesCopy]);
         setCurrentGuess("");
+
         return;
       }
 
@@ -87,6 +94,10 @@ function App(): JSX.Element {
       <h1 className="title">Wordle</h1>
       <Board guesses={guesses} success={success} currentGuess={currentGuess} />
       <Keyboard charactersMap={charactersMap} />
+      {/* {(isGameOver || !guesses.includes("")) && ( */}
+      {/* <GameOver win={guesses.includes(success)} score={6 - guesses.length} /> */}
+      {/* )} */}
+      <GameOver win={true} score={6 - guesses.length} />
     </div>
   );
 }

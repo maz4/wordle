@@ -1,0 +1,13 @@
+.game-over {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  z-index: 2;
+  top: calc(35%);
+  right: -calc(50%);
+  border: 1px black solid;
+  border-radius: 5px;
+  text-align: center;
+  background-color: rgba(100, 100, 100, 0.9);
+  font-size: 30px;
+}
