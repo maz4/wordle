@@ -8,7 +8,7 @@ const keys = KEYBOARD_LAYOUT.reduce((acc, next) => {
 }, []);
 
 describe("Board.tsx", () => {
-  it("should render title, board nd keyboard", () => {
+  it("should render keyboard", () => {
     render(<Keyboard charactersMap={{}} />);
 
     screen.getByTestId("keyboard");

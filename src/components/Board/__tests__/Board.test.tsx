@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import Board from "../index";
 
 describe("Board.tsx", () => {
-  it("should render title, board nd keyboard", () => {
+  it("should render board", () => {
     render(
       <Board
         guesses={["", "", "", "", "", ""]}
