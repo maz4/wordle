@@ -1,11 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Keyboard from "../index";
-import { KEYBOARD_LAYOUT, allowedKeys } from "../../../constants/constants";
+import { allowedKeys } from "../../../constants/constants";
 import userEvent from "@testing-library/user-event";
-
-const keys = KEYBOARD_LAYOUT.reduce((acc, next) => {
-  return acc.concat(next);
-}, []);
 
 describe("Board.tsx", () => {
   it("should render keyboard", () => {

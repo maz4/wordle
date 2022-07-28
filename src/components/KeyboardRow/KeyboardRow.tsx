@@ -15,10 +15,17 @@ function KeyboardRow({
   return (
     <div className="keyboard__row">
       {charactersRow.map((character: string, index: number) => {
+        let specialCharacter =
+          character.length > 1
+            ? `keyboard__key--${character.toLowerCase()}`
+            : "";
+
         return (
           <KeyboardKey
             key={character + index}
-            className={charactersMap[character] ?? ""}
+            className={`${
+              charactersMap[character] ?? ""
+            }${specialCharacter}`.trim()}
             onClick={(event) => onKeyClick(character)}
           >
             {character}

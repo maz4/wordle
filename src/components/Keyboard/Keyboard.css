@@ -26,6 +26,14 @@
   cursor: pointer;
 }
 
+.keyboard__key--backspace {
+  width: 80px;
+}
+
+.keyboard__key--enter {
+  width: 40px;
+}
+
 .keyboard__key--green {
   background-color: lightgreen;
 }
@@ -45,5 +53,13 @@
     width: 45px;
     height: 55px;
     font-size: 20px;
+  }
+
+  .keyboard__key--backspace {
+    width: 120px;
+  }
+
+  .keyboard__key--enter {
+    width: 60px;
   }
 }
