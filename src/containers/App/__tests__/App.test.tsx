@@ -130,9 +130,7 @@ describe("Board.tsx", () => {
     );
   });
 
-  xit("should not allow user to type more than 5 letters", () => {});
-
-  it("should show game over modal with score 0 after 6 missed guesses", () => {
+  it("should show a game over modal on lost game with 'Game Over' message", () => {
     render(<App />);
 
     const guesess = ["start", "board", " world", "toast", "paper", "guess"];
@@ -143,12 +141,12 @@ describe("Board.tsx", () => {
     });
 
     const modal = screen.getByText("Game Over");
-    const score = screen.getByText("0");
+    const resetButton = screen.getByRole("button", { name: "Restart Game" });
     expect(modal).toBeInTheDocument();
-    expect(score).toBeInTheDocument();
+    expect(resetButton).toBeInTheDocument();
   });
 
-  fit("should show game over win version modal with score 5 after 1 correct guess", () => {
+  it("should show a game over modal on win game with 'Win' word", () => {
     render(<App />);
 
     const guesess = ["rhino"];
@@ -159,9 +157,66 @@ describe("Board.tsx", () => {
     });
 
     const modal = screen.getByText("Win");
-    const score = screen.getByText("5");
+    const resetButton = screen.getByRole("button", { name: "Restart Game" });
+    expect(resetButton).toBeInTheDocument();
     expect(modal).toBeInTheDocument();
-    expect(score).toBeInTheDocument();
+  });
+
+  it("should reset teh game after clicking 'Reset Game' button", () => {
+    render(<App />);
+
+    const guesess = ["rhino"];
+
+    guesess.forEach((guess) => {
+      guess.split("").forEach((letter) => userEvent.keyboard(letter));
+      userEvent.keyboard("{enter}");
+    });
+
+    const resetButton = screen.getByRole("button", { name: "Restart Game" });
+
+    userEvent.click(resetButton);
+
+    expect(screen.queryByRole("button", { name: "Restart Game" })).toBeNull();
+  });
+
+  it("should not allow typing when game is over", () => {
+    render(<App />);
+
+    const guesess = ["rhino"];
+
+    guesess.forEach((guess) => {
+      guess.split("").forEach((letter) => userEvent.keyboard(letter));
+      userEvent.keyboard("{enter}");
+    });
+
+    userEvent.keyboard("y");
+
+    const board = screen.getByTestId("board");
+    expect(within(board).queryByText("y")).toBeNull();
+  });
+
+  it("should not replace color of already correctly guessed letter on the onscreen keyboard", () => {
+    render(<App />);
+
+    const firstGuess = "rhoni";
+    const secondGuess = "rohni";
+
+    firstGuess.split("").forEach((letter) => userEvent.keyboard(letter));
+    userEvent.keyboard("{enter}");
+
+    let keyboard = screen.getByTestId("keyboard");
+
+    expect(within(keyboard).getByText("h")).toHaveClass(
+      "keyboard__key keyboard__key--green"
+    );
+
+    secondGuess.split("").forEach((letter) => userEvent.keyboard(letter));
+    userEvent.keyboard("{enter}");
+
+    keyboard = screen.getByTestId("keyboard");
+    expect(within(keyboard).getByText("h")).toHaveClass(
+      "keyboard__key keyboard__key--green"
+    );
   });
 });
 

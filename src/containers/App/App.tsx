@@ -89,15 +89,24 @@ function App(): JSX.Element {
     };
   }, [currentGuess, guesses, isGameOver, charactersMap]);
 
+  const handleResetGame = (): void => {
+    setGuesses(Array(6).fill(""));
+    setIsGameOver(false);
+    setCharactersMap({});
+    setCurrentGuess("");
+  };
+
   return (
     <div className="container">
       <h1 className="title">Wordle</h1>
       <Board guesses={guesses} success={success} currentGuess={currentGuess} />
       <Keyboard charactersMap={charactersMap} />
-      {/* {(isGameOver || !guesses.includes("")) && ( */}
-      {/* <GameOver win={guesses.includes(success)} score={6 - guesses.length} /> */}
-      {/* )} */}
-      <GameOver win={true} score={6 - guesses.length} />
+      {(isGameOver || !guesses.includes("")) && (
+        <GameOver
+          win={guesses.includes(success)}
+          restartCallback={handleResetGame}
+        />
+      )}
     </div>
   );
 }
